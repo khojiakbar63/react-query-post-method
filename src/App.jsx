@@ -27,7 +27,6 @@ const App = () => {
   const mutation = useMutation({
     mutationFn: (state)=> postAPI.create(state),
     onSuccess: () => {
-      // alert("Post added successfully")
       setTitle("")
       setContent("")
       posts.refetch()
