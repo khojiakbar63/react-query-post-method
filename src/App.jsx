@@ -18,11 +18,7 @@ const App = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
-  const posts = useFetch("POSTS", postAPI.get());
-
-  if (posts.isLoading) return <Text>Loading...</Text>;
-  if (posts.isError) return <p>Error: {isError.message}</p>;
-
+  const posts = useFetch("POSTS", postAPI.get);
 
   const mutation = useMutation({
     mutationFn: (state)=> postAPI.create(state),
@@ -31,10 +27,12 @@ const App = () => {
       setContent("")
       posts.refetch()
 
-    }
+    },
+    onError: (error) => console.log(error.message)
   })
 
-
+  if (posts.isLoading) return <Text>Loading...</Text>;
+  if (posts.error) return <p>Error: {error.message}</p>;
 
   return (
     <>
